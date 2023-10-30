@@ -19,7 +19,11 @@ async function fetchingData () {
 
 console.log(userData);
 
-useEffect(() => {fetchingData()}, [session]);
+useEffect(() => {
+    fetchingData();
+}
+, [session]);
+
     
     return (
         <>

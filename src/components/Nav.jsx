@@ -9,11 +9,11 @@ export default function Nav() {
 
 
   return (
-    <div className="flex sticky h-full flex-col items-center justify-between w-[350px]">
+    <div className="flex sticky h-screen flex-col items-center justify-between w-[350px]">
       <nav>
         <ul className="">
-          <li>Home</li>
-          <li>User</li>
+          <li><Link href={'/'}>Home</Link></li>
+          <li><Link href={'/account'}>User</Link></li>
           <li>
             <Link href={"/login"}>Login</Link>
           </li>

@@ -1,16 +1,12 @@
-import mongooseConnect from "@/libs/mongoose";
+
+import { connectMongoDB } from "@/libs/mongoose";
 import User from "@/models/user";
 
 export default async function handler(req, res) {
-    await mongooseConnect();
-
+    await connectMongoDB();
     const {userEmail} = req.body;
-
+    console.log(userEmail)
     const userData = User.findOne({email: userEmail});
-
-    return res.json({userData});
+    return res.json({ userData });
 }
 
-export const config = {
-    api: { bodyParser: false },
-  };
