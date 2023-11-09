@@ -1,9 +1,11 @@
+import Link from "next/link";
+
 export default function Comments({comment}) {
-    console.log(comment)
     return (
         <div className="border max-w-lg">
         {comment?.map((comment) => (
-            <div className="p-2 border" key={comment.id}>
+            <Link key={comment.id} href={`/${comment._id}`}>
+            <div className="p-2 border">
             <p className="mb-5">{comment.comment}</p>
             <div className="flex">{comment?.images?.map((img) => (
                 <picture className="" key={img.id}>
@@ -11,6 +13,7 @@ export default function Comments({comment}) {
                 </picture>
             ))}</div>
             </div>
+            </Link>
         )
         )}
         </div>

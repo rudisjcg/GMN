@@ -10,14 +10,17 @@ export default function Home({comments }) {
 const {data: session} = useSession();
 console.log(session)
 
+
   return (
     <LayoutPage>
       <div>
-        <PostForm/>
+        {!session?.user?.email && <PostForm/>}
+        
       </div>
       <div>
         <Comments comment={comments}/>
       </div>
+      
     </LayoutPage>
   )
 }
