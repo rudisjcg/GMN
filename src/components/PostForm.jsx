@@ -19,7 +19,8 @@ export default  function () {
         images,
         likes,
         subComments,
-        email: session?.user?.email
+        email: session?.user?.email,
+        userPicture: session?.user?.image,
       };
       if (session) {
         try {
