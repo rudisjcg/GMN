@@ -1,20 +1,18 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import { connectMongoDB, mongooseConnect } from "@/libs/mongoose";
+
+import { connectMongoDB} from "@/libs/mongoose";
 import User from "@/models/user";
 
 export default async function POST(req) {
-  try {
-    const { name, email, password } = await req.json();
-    const hashedPassword = await bcrypt.hash(password, 10);
+  
+    const {  email } = await req.json();
     await connectMongoDB();
-    await User.create({ name, email, password: hashedPassword });
-
-    return NextResponse.json({ message: "User registered." }, { status: 201 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "An error occurred while registering the user." },
-      { status: 500 }
-    );
-  }
+    const userFind = await User.find({ email: email });
+    
+    if (userFind.length > 0) {
+      return res.status(200).json({ userExists: true }, { email: userFind});
+    } else {
+      return res.status(500).json({ userExists: false });
+    }
+  
+   
 }

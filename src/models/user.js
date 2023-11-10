@@ -23,8 +23,8 @@ const userSchema = new Schema(
       default: "user",
     },
     image: {
-      type: String,
-      default: "",
+      type: [String],
+      default: false,
     },
   },
   { timestamps: true }

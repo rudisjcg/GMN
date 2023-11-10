@@ -2,7 +2,7 @@ import Comments from '@/components/Comments';
 import LayoutPage from '@/components/Layout'
 import PostForm from '@/components/PostForm'
 import { connectMongoDB } from '@/libs/mongoose';
-import Comment from '@/models/comment';
+import Comment from '@/models/Comment';
 import { useSession } from 'next-auth/react';
 
 

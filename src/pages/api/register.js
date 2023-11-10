@@ -1,15 +1,14 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import User from "@/models/user";
 import { connectMongoDB } from "@/libs/mongoose";
+import User from "@/models/user";
 
-export async function POST(req) {
+export default async function handle(req) {
+  console.log(req.body)
   try {
-    const { name, email, password, verified, role, image } = await req.json();
-
+    const { name, email, password, verified, role, image } = await req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
-    await User.create({
+    const res = await User.create({
       name,
       email,
       password: hashedPassword,
@@ -17,12 +16,9 @@ export async function POST(req) {
       role,
       image, 
     });
-
-    return NextResponse.json({ message: "User registered." }, { status: 201 });
+    console.log( res.status(200).json({ message: "User registered successfully." }));
+    return;
   } catch (error) {
-    return NextResponse.json(
-      { message: "An error occurred while registering the user.", error },
-      { status: 500 }
-    );
+    console.log(error)
   }
 }

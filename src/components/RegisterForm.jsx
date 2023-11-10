@@ -23,6 +23,22 @@ export default function RegisterForm() {
   console.log(session)
   if (session) return router.push('/');
 
+  async function uploadImages(ev) {
+    const files = ev.target?.files;
+    if (files?.length > 0) {
+      setLoading(true);
+      const data = new FormData();
+      for (const file of files) {
+        data.append("file", file);
+      }
+      const res = await axios.postForm("/api/upload", data);
+      setImage((oldImages) => {
+        return [...oldImages, ...res.data.links];
+      });
+      setLoading(false);
+    }  
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,6 +48,9 @@ export default function RegisterForm() {
     }
 
     try {
+
+      /* 
+      
       const resUserExists = await fetch("api/userExists", {
         method: "POST",
         headers: {
@@ -39,14 +58,15 @@ export default function RegisterForm() {
         },
         body: JSON.stringify({ email }),
       });
-
+      
       const { user } = await resUserExists.json();
-
+      
       if (user) {
         setError("User already exists.");
         return;
       }
-
+      */
+      
       const res = await fetch("api/register", {
         method: "POST",
         headers: {
@@ -73,6 +93,8 @@ export default function RegisterForm() {
       console.log("Error during registration: ", error);
     }
   };
+
+
 
   return (
     <div className="grid place-items-center h-screen">
@@ -103,12 +125,7 @@ export default function RegisterForm() {
               <div>Upload</div>
               <input
                 type="file"
-                onChange={({ target: { files } }) => {
-                  files[0] && setFileName(files[0].name);
-                  if (files) {
-                    setImage(URL.createObjectURL(files[0]));
-                  }
-                }}
+                onChange={uploadImages}
                 accept="image/*"
                 className="hidden"
               />

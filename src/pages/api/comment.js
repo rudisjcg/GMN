@@ -1,6 +1,6 @@
 
 import { connectMongoDB } from "@/libs/mongoose";
-import Comment from "@/models/comment";
+import Comment from "@/models/Comment";
 
 export default async function handler(req, res) {
   await connectMongoDB();

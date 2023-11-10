@@ -1,6 +1,6 @@
 
 import { connectMongoDB } from "@/libs/mongoose";
-import User from "@/models/user";
+import User from "@/models/User";
 
 export default async function handler(req, res) {
     await connectMongoDB();
